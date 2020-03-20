@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Home from './home';
 import Add from './add';
 class App extends React.Component {
@@ -10,34 +10,34 @@ class App extends React.Component {
         this.state = {
             listState: true,
             data: [
-                {
-                    id: 0,
-                    title: "空白格",
-                    singer: "蔡健雅",
-                    selected: true,
-                    like: false
-                },
-                {
-                    id: 1,
-                    title: "空白格222",
-                    singer: "蔡健雅222",
-                    selected: true,
-                    like: false
-                }
-                , {
-                    id: 2,
-                    title: "空白格333",
-                    singer: "蔡健雅33",
-                    selected: true,
-                    like: true
-                }
-                , {
-                    id: 3,
-                    title: "空白格444",
-                    singer: "蔡健雅444",
-                    selected: true,
-                    like: false
-                }
+                // {
+                //     id: 0,
+                //     title: "空白格",
+                //     singer: "蔡健雅",
+                //     selected: true,
+                //     like: false
+                // },
+                // {
+                //     id: 1,
+                //     title: "空白格222",
+                //     singer: "蔡健雅222",
+                //     selected: true,
+                //     like: false
+                // }
+                // , {
+                //     id: 2,
+                //     title: "空白格333",
+                //     singer: "蔡健雅33",
+                //     selected: true,
+                //     like: true
+                // }
+                // , {
+                //     id: 3,
+                //     title: "空白格444",
+                //     singer: "蔡健雅444",
+                //     selected: true,
+                //     like: false
+                // }
             ]
         };
         this.add = this.add.bind(this);
@@ -166,9 +166,9 @@ class App extends React.Component {
         return true;
     }
     render() {
-        let data = this.state.data;
-        let selectData = data.filter((val) => val.selected);
-        let likeData = data.filter((val) => val.like);
+        // let data = this.state.data;
+        // let selectData = data.filter((val) => val.selected);
+        // let likeData = data.filter((val) => val.like);
 
         return (
             <BrowserRouter>
@@ -181,8 +181,20 @@ class App extends React.Component {
                     </nav>
                     <hr /> */}
                     <Switch>
-                        <Route path="/add" component={Add} />
+                        <Route path="/add"
+                            render={(e) => {
+                                return (
+                                    <Add
+                                        length={this.state.data.length}
+                                        add={this.add}
+                                        router={e}
+                                    />
+                                )
+                            }} />
                         <Route path="/" render={(e) => {
+                            if (this.state.data.length === 0) {
+                                return <Redirect to="/add" />
+                            }
                             return (
                                 <Home
                                     pathName={e.location.pathname}

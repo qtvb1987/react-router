@@ -6,7 +6,7 @@ export default class Footer extends React.Component {
     render() {
         let length = this.props.length;
         let selectLength = this.props.selectLength;
-        let listShow = this.props.listState;
+        // let listShow = this.props.listState;
         let likeLength = this.props.likeLength;
         let pathName = this.props.pathName;
         return (
@@ -52,7 +52,7 @@ export default class Footer extends React.Component {
                         this.props.cancelLikeSelect();
                     }}
                 ></input>
-                {pathName === "/" ? <Link to="/like" >查看收藏列表</Link> : ""}
+                {(pathName === "/" && likeLength > 0) ? <Link to="/like" >查看收藏列表</Link> : ""}
                 {pathName === "/like" ? <Link to="/" >查看所有列表</Link> : ""}
             </footer>
         );
