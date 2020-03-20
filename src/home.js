@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import Main from './main';
+import Footer from './footer';
+
 // class All extends React.Component {
 //     render() {
 //         console.log(this.props);
@@ -20,14 +22,27 @@ import Main from './main';
 
 export default class Home extends React.Component {
     render() {
-        console.log(this.props);
+
         let props = this.props;
         let data = props.data;
         let selectData = data.filter((val) => val.selected);
         let likeData = data.filter((val) => val.like);
 
+
         return (
             <div>
+                <header>
+                    <h2 className="title">
+                        {props.pathName === "/" ? "播放" : "收藏"}列表
+
+                        <Link to="/add" className="addLink">添加歌曲</Link>
+
+                    </h2>
+
+
+                </header>
+                {/* <Link to="/">所有列表</Link>
+                <Link to="/like">收藏列表</Link> */}
                 {/* <h2>列表页</h2>
                 <nav>
 
@@ -57,6 +72,17 @@ export default class Home extends React.Component {
                         />
                     )
                 }} />
+
+                <Footer
+                    pathName={props.pathName}
+                    length={data.length}
+                    selectLength={selectData.length}
+                    likeLength={likeData.length}
+                    removeSelect={props.removeSelect}
+                    likeSelect={props.likeSelect}
+                    cancelLikeSelect={props.cancelLikeSelect}
+
+                />
             </div>
         )
     }

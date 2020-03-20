@@ -49,7 +49,7 @@ class App extends React.Component {
         this.removeSelect = this.removeSelect.bind(this);
         this.likeSelect = this.likeSelect.bind(this);
         this.cancelLikeSelect = this.cancelLikeSelect.bind(this);
-        this.showLikeList = this.showLikeList.bind(this);
+        // this.showLikeList = this.showLikeList.bind(this);
     }
     add(title, singer) {
         let data = this.state.data;
@@ -146,12 +146,12 @@ class App extends React.Component {
             data
         })
     }
-    showLikeList(state) {
+    // showLikeList(state) {
 
-        this.setState({
-            listState: state
-        })
-    }
+    //     this.setState({
+    //         listState: state
+    //     })
+    // }
     shouldComponentUpdate(nextProps, nextState) {
         if (!nextState.listState) {
             let likeData = nextState.data.filter((val) => val.like)
@@ -181,16 +181,20 @@ class App extends React.Component {
                     </nav>
                     <hr /> */}
                     <Switch>
-                        {/* <Route path="/add" component={Add} /> */}
-                        <Route path="/" render={() => {
+                        <Route path="/add" component={Add} />
+                        <Route path="/" render={(e) => {
                             return (
                                 <Home
-                                    data={this.state.listState ? data : likeData}
+                                    pathName={e.location.pathname}
+                                    data={this.state.data}
                                     isCheckAll={this.isCheckAll()}
                                     checkAll={this.setCheckAll}
                                     setCheck={this.setCheck}
                                     setLike={this.setLike}
                                     remove={this.remove}
+                                    removeSelect={this.removeSelect}
+                                    likeSelect={this.likeSelect}
+                                    cancelLikeSelect={this.cancelLikeSelect}
                                 />
                             )
                         }} />
