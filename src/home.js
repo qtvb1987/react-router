@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Redirect } from 'react-router-dom';
 import Main from './main';
 import Footer from './footer';
 
@@ -61,6 +61,9 @@ export default class Home extends React.Component {
                     )
                 }} />
                 <Route path="/like" render={() => {
+                    if (likeData.length === 0) {
+                        return <Redirect to="/" />
+                    }
                     return (
                         <Main
                             data={likeData}
